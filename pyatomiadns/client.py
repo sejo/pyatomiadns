@@ -90,7 +90,7 @@ class AtomiaClient():
     def GetDnsRecords(self, zone, label):
         """GetRecord will fetch full record information for zone and label given
         """
-        arguments = [zone, label]
+        arguments = [zone, label, ]
         data = json.dumps(arguments)
         response = self.request("GetDnsRecords", data)
         return self.process_response(response)
@@ -119,7 +119,7 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
 :param minimum: `int` the SOA minimum field
 
 :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
-:param nameservergroup: `str` the nameserver group that should host the zone
+:param nameservergroup: `str` the nameserver group that should host the zone 
         """
         arguments = [zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup, ]
         data = json.dumps(arguments)
@@ -174,7 +174,7 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
 :param minimum: `int` the SOA minimum field
 
 :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
-:param nameservergroup: `str` the nameserver group that should host the zone
+:param nameservergroup: `str` the nameserver group that should host the zone 
         """
         arguments = [zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup, ]
         data = json.dumps(arguments)
@@ -188,3 +188,4 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
         data = json.dumps(arguments)
         response = self.request("ReloadAllZones", data)
         return self.process_response(response)
+    
