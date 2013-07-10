@@ -3,6 +3,12 @@ Welcome to pyatomiadns's documentation!
 
 This is the main and official documentation for pyatomiadns.
 
+My name is Jochen Maes and you can contact me @ firstname dot sejo dash it dot be, I'm also online on freenode, oftc as sejo.
+I wrote this to be able to populate my dns servers with ansible.
+I'll add a link to the correct project for the ansible module when I finish it.
+
+
+
 TODO
 ====
 
