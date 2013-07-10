@@ -3,4 +3,8 @@ pyatomiadns
 
 Python Api to atomiadns
 
-Full docs will be on readthedocs soon.
+Docs to be found here: https://pyatomiadns.readthedocs.org/en/latest/
+
+This is work in progress.
+
+
