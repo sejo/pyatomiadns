@@ -1,0 +1,139 @@
+GetAllZones:
+ args: null
+ docstring: "GetAllZones returns all the zone names that are defined. This is an ADMIN only method"
+GetLabels:
+ args:
+   - "zone"
+ docstring: "GetLabels returns all the labels for a certain zone.
+
+      :param zone: `str` zone (example.org, sejo-it.be,...)"
+GetZone:
+ args:
+   - "zone"
+ docstring: "GetZone returns the complete zone info with all records
+
+     :param zone: `str` zone (example.org, sejo-it.be,...)"
+GetDnsRecords:
+ args:
+  - "zone"
+  - "label"
+ docstring: "GetRecord will fetch full record information for zone and label given"
+AddZone:
+ args:
+  - "zonename"
+  - "zonettl"
+  - "mname"
+  - "rname"
+  - "refresh"
+  - "retry"
+  - "expire"
+  - "minimum"
+  - "nameservers"
+  - "nameservergroup"
+ docstring: "Add a zone to the Atomia DNS master database.
+
+ :param zonename: `str` the name of the zone
+
+ :param zonettl: `int` the ttl of the SOA-record and the NS-records
+
+ :param mname: `str` the SOA mname field
+
+ :param rname: `str` the SOA rname field
+
+ :param refresh: `int` the SOA refresh field
+
+ :param retry: `int` the SOA retry field
+
+ :param expire: `int` the SOA expire field
+
+ :param minimum: `int` the SOA minimum field
+
+
+ :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+
+ :param nameservergroup: `str` the nameserver group that should host the zone
+ "
+DeleteZone:
+ args:
+  - "zone"
+ docstring: "Deletes a zone from the database.
+
+ :param zone: `str` the name of the zone"
+EditZone:
+ args:
+  - "zonename"
+  - "zonettl"
+  - "mname"
+  - "rname"
+  - "refresh"
+  - "retry"
+  - "expire"
+  - "minimum"
+  - "nameservers"
+  - "nameservergroup"
+ docstring: "Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
+
+ :param zonename: `str` the name of the zone
+
+ :param zonettl: `int` the ttl of the SOA-record and the NS-records
+
+ :param mname: `str` the SOA mname field
+
+ :param rname: `str` the SOA rname field
+
+ :param refresh: `int` the SOA refresh field
+
+ :param retry: `int` the SOA retry field
+
+ :param expire: `int` the SOA expire field
+
+ :param minimum: `int` the SOA minimum field
+
+
+ :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+
+ :param nameservergroup: `str` the nameserver group that should host the zone
+ "
+AddNameserver:
+ args:
+  - "nameserver"
+  - "nameservergroup"
+ docstring: "Add a nameserver as a subscriber of changes to the data set in this server.
+
+ :param nameserver: `str` the servername to add as a subscriber
+
+ :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for"
+DeleteNameserver:
+ args:
+  - "nameserver"
+ docstring: "Remove a nameserver as a subscriber of changes to the data set in this server.
+
+ :param nameserver: `str` the servername to remove as a subscriber"
+GetNameserver:
+ args:
+  - "nameserver"
+ docstring: "Gets the group name that a nameserver is configured as a subscriber for.
+
+ :param nameserver: `str` the servername to get information for"
+ReloadAllZones:
+ args: null
+ docstring: "Mark all zones in the database as changed."
+AddDnsRecords:
+ args:
+  - "zone"
+  - "records"
+ docstring: 'Adds a list of records to a zone.
+
+        A record dict is the following:
+        {
+            "ttl":  "3600",
+            "label" : "@",
+            "class" : "IN",
+            "type" : "A",
+            "rdata" : "192.168.0.1"
+        }
+
+
+        :param zone: `str` the name of the zone
+
+        :param records: `list` list of dicts containing the records'
