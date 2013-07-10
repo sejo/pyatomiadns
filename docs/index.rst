@@ -8,7 +8,7 @@ I wrote this to be able to populate my dns servers with ansible.
 I'll add a link to the correct project for the ansible module when I finish it.
 
 You can find the code of this project here:
-htts://github.com/sejo/pyatomiadns
+https://github.com/sejo/pyatomiadns
 
 TODO
 ====
