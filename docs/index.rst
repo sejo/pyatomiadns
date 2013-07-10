@@ -6,10 +6,7 @@ contain the root `toctree` directive.
 Welcome to pyatomiadns's documentation!
 =======================================
 
-Contents:
-
-.. toctree::
-    :maxdepth: 2
+This is the main and official documentation for pyatomiadns.
 
 TODO
 ====
@@ -37,14 +34,13 @@ This is how to do it :
 
 Running the previous commands should have generated a new client.py file.
 
+Contents:
 
-Generated API
-=============
+.. toctree::
+    :maxdepth: 2
 
-.. automodule:: pyatomiadns.client
+    pyatomiadns/client
 
-.. autoclass:: AtomiaClient
-    :members:
 
 Indices and tables
 ==================

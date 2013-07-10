@@ -6,11 +6,13 @@ GetLabels:
    - "zone"
  docstring: "GetLabels returns all the labels for a certain zone.
 
+
       :param zone: `str` zone (example.org, sejo-it.be,...)"
 GetZone:
  args:
    - "zone"
  docstring: "GetZone returns the complete zone info with all records
+
 
      :param zone: `str` zone (example.org, sejo-it.be,...)"
 GetDnsRecords:
@@ -32,6 +34,7 @@ AddZone:
   - "nameservergroup"
  docstring: "Add a zone to the Atomia DNS master database.
 
+
  :param zonename: `str` the name of the zone
 
  :param zonettl: `int` the ttl of the SOA-record and the NS-records
@@ -48,7 +51,6 @@ AddZone:
 
  :param minimum: `int` the SOA minimum field
 
-
  :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
 
  :param nameservergroup: `str` the nameserver group that should host the zone
@@ -57,6 +59,7 @@ DeleteZone:
  args:
   - "zone"
  docstring: "Deletes a zone from the database.
+
 
  :param zone: `str` the name of the zone"
 EditZone:
@@ -73,6 +76,7 @@ EditZone:
   - "nameservergroup"
  docstring: "Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
 
+
  :param zonename: `str` the name of the zone
 
  :param zonettl: `int` the ttl of the SOA-record and the NS-records
@@ -89,7 +93,6 @@ EditZone:
 
  :param minimum: `int` the SOA minimum field
 
-
  :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
 
  :param nameservergroup: `str` the nameserver group that should host the zone
@@ -100,6 +103,7 @@ AddNameserver:
   - "nameservergroup"
  docstring: "Add a nameserver as a subscriber of changes to the data set in this server.
 
+
  :param nameserver: `str` the servername to add as a subscriber
 
  :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for"
@@ -108,11 +112,13 @@ DeleteNameserver:
   - "nameserver"
  docstring: "Remove a nameserver as a subscriber of changes to the data set in this server.
 
+
  :param nameserver: `str` the servername to remove as a subscriber"
 GetNameserver:
  args:
   - "nameserver"
  docstring: "Gets the group name that a nameserver is configured as a subscriber for.
+
 
  :param nameserver: `str` the servername to get information for"
 ReloadAllZones:
@@ -123,6 +129,7 @@ AddDnsRecords:
   - "zone"
   - "records"
  docstring: 'Adds a list of records to a zone.
+
 
         A record dict is the following:
         {

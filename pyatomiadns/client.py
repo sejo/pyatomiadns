@@ -59,56 +59,61 @@ class AtomiaClient():
 
     def process_response(self, response):
         print response
-
+    
     def GetLabels(self, zone):
         """GetLabels returns all the labels for a certain zone.
+
 :param zone: `str` zone (example.org, sejo-it.be,...)
         """
-        arguments = [zone, ]
+        arguments = [zone,]
         data = json.dumps(arguments)
         response = self.request("GetLabels", data)
         return self.process_response(response)
-
+    
     def DeleteZone(self, zone):
         """Deletes a zone from the database.
+
 :param zone: `str` the name of the zone
         """
-        arguments = [zone, ]
+        arguments = [zone,]
         data = json.dumps(arguments)
         response = self.request("DeleteZone", data)
         return self.process_response(response)
-
+    
     def GetNameserver(self, nameserver):
         """Gets the group name that a nameserver is configured as a subscriber for.
+
 :param nameserver: `str` the servername to get information for
         """
-        arguments = [nameserver, ]
+        arguments = [nameserver,]
         data = json.dumps(arguments)
         response = self.request("GetNameserver", data)
         return self.process_response(response)
-
+    
     def GetDnsRecords(self, zone, label):
         """GetRecord will fetch full record information for zone and label given
         """
-        arguments = [zone, label, ]
+        arguments = [zone,label,]
         data = json.dumps(arguments)
         response = self.request("GetDnsRecords", data)
         return self.process_response(response)
-
+    
     def AddDnsRecords(self, zone, records):
         """Adds a list of records to a zone.
+
 A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN", "type" : "A", "rdata" : "192.168.0.1" }
 
 :param zone: `str` the name of the zone
 :param records: `list` list of dicts containing the records
         """
-        arguments = [zone, records, ]
+        arguments = [zone,records,]
         data = json.dumps(arguments)
         response = self.request("AddDnsRecords", data)
         return self.process_response(response)
-
+    
     def AddZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
         """Add a zone to the Atomia DNS master database.
+
 :param zonename: `str` the name of the zone
 :param zonettl: `int` the ttl of the SOA-record and the NS-records
 :param mname: `str` the SOA mname field
@@ -117,43 +122,45 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
 :param retry: `int` the SOA retry field
 :param expire: `int` the SOA expire field
 :param minimum: `int` the SOA minimum field
-
 :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
 :param nameservergroup: `str` the nameserver group that should host the zone 
         """
-        arguments = [zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup, ]
+        arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
         response = self.request("AddZone", data)
         return self.process_response(response)
-
+    
     def DeleteNameserver(self, nameserver):
         """Remove a nameserver as a subscriber of changes to the data set in this server.
+
 :param nameserver: `str` the servername to remove as a subscriber
         """
-        arguments = [nameserver, ]
+        arguments = [nameserver,]
         data = json.dumps(arguments)
         response = self.request("DeleteNameserver", data)
         return self.process_response(response)
-
+    
     def GetZone(self, zone):
         """GetZone returns the complete zone info with all records
+
 :param zone: `str` zone (example.org, sejo-it.be,...)
         """
-        arguments = [zone, ]
+        arguments = [zone,]
         data = json.dumps(arguments)
         response = self.request("GetZone", data)
         return self.process_response(response)
-
+    
     def AddNameserver(self, nameserver, nameservergroup):
         """Add a nameserver as a subscriber of changes to the data set in this server.
+
 :param nameserver: `str` the servername to add as a subscriber
 :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
         """
-        arguments = [nameserver, nameservergroup, ]
+        arguments = [nameserver,nameservergroup,]
         data = json.dumps(arguments)
         response = self.request("AddNameserver", data)
         return self.process_response(response)
-
+    
     def GetAllZones(self):
         """GetAllZones returns all the zone names that are defined. This is an ADMIN only method
         """
@@ -161,9 +168,10 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
         data = json.dumps(arguments)
         response = self.request("GetAllZones", data)
         return self.process_response(response)
-
+    
     def EditZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
         """Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
+
 :param zonename: `str` the name of the zone
 :param zonettl: `int` the ttl of the SOA-record and the NS-records
 :param mname: `str` the SOA mname field
@@ -172,15 +180,14 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
 :param retry: `int` the SOA retry field
 :param expire: `int` the SOA expire field
 :param minimum: `int` the SOA minimum field
-
 :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
 :param nameservergroup: `str` the nameserver group that should host the zone 
         """
-        arguments = [zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup, ]
+        arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
         response = self.request("EditZone", data)
         return self.process_response(response)
-
+    
     def ReloadAllZones(self):
         """Mark all zones in the database as changed.
         """
