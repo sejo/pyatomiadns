@@ -57,7 +57,7 @@ options:
     description: string stating which nameservergroup the action relates to
     required: false
   nameservers:
-    description: a listof the hostnames of the nameservers for the zone (["dns1.example.org","dns2.example.org"])
+    description: a comma separated list the hostnames of the nameservers for the zone ("dns1.example.org,dns2.example.org")
     required: false
   password:
     description: password for the atomiadns soap api
