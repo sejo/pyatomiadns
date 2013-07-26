@@ -30,7 +30,7 @@ version_added: "1.0"
 author: Jochen Maes
 notes:
   - "Requires a functional AtomiaDNS installation"
-  - "Requirest pyatomiadns to be installed (https://github.com/sejo/pyatomiadns)
+  - "Requires pyatomiadns to be installed (https://github.com/sejo/pyatomiadns), you can install with pip install pyatomiadns
 requirements:
   - pyatomiadns
 options:
@@ -114,7 +114,6 @@ def main():
         GetNameserver=('nameserver'),
         GetZone=('zone',),
         ReloadAllZones=())
-    required_args = ('user', 'password', 'url')
 
     module = AnsibleModule(
         argument_spec=dict(
@@ -148,17 +147,29 @@ def main():
     client = AtomiaClient(url, user, password)
 
     args = dict()
+    # Here we will run over all the required arguments for the command given.
     for param in command_required_param_map.get(command):
+        # if the argument is not found, error.
         if not module.params[param]:
             module.fail_json(msg='%s param is required for command=%s' % (param, command))
         else:
+            # a bit specific, for nameservers we need to provide a list, but I choose to provide a comma separated
+            # string. This would make it much easier to do from commandline
             if param == 'nameservers':
                 args[param] = module.params[param].split(',')
+            # for records we need a json string that has all the needed params (see docs)
             elif param == 'records':
                 args[param] = json.loads(module.params[param])
             else:
                 args[param] = module.params[param]
     changed = False
+    # getattr is a function that allows me to get the attribute or method of an object.
+    # thus getattr(client, command), means give me the method that has the same name of the value of command
+    # for the client object.
+    # the (**args) behind it mean that the method should be invoked at once with the keyword argument list
+    # that is constructed in args.
+    # the reason why we use getattr is to avoid long if clauses that run client.<command>, this could
+    # possibly lead to more bugs as more code is needed.
     retval = getattr(client, command)(**args)
     ret = json.loads(retval)
     if 'error_message' in ret:
