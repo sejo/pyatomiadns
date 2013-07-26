@@ -25,8 +25,12 @@ class AtomiaClient():
         req.add_header('X-Auth-Username', self.email)
         req.add_header('X-Auth-Password', self.password)
         req.add_data(data)
-        response = urllib2.urlopen(req)
-        return response.read()
+
+        try:
+            response = urllib2.urlopen(req)
+            return response.read()
+        except urllib2.URLError, e:
+            return e.read()
 
     def process_response(self, response):
         return response

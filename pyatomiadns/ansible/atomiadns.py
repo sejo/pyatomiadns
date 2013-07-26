@@ -17,7 +17,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Ansible.  If not, see <http://www.gnu.org/licenses/>.
-from urllib2 import HTTPError
+import json
 from pyatomiadns.client import AtomiaClient
 
 DOCUMENTATION = """
@@ -104,38 +104,37 @@ def main():
         AddNameserver=('nameserver', 'nameservergroup'),
         AddZone=('zonename', 'zonettl', 'mname', 'rname', 'refresh', 'retry', 'expire', 'minimum', 'nameservers',
                  'nameservergroup'),
-        DeleteNameserver=('nameserver'),
-        DeleteZone=('zone'),
+        DeleteNameserver=('nameserver',),
+        DeleteZone=('zone',),
         EditZone=('zonename', 'zonettl', 'mname', 'rname', 'refresh', 'retry', 'expire', 'minimum', 'nameservers',
                   'nameservergroup'),
         GetAllZones=(),
         GetDnsRecords=('zone', 'label'),
-        GetLabels=('zone'),
+        GetLabels=('zone',),
         GetNameserver=('nameserver'),
-        GetZone=('zone'),
+        GetZone=('zone',),
         ReloadAllZones=())
     required_args = ('user', 'password', 'url')
 
-
     module = AnsibleModule(
         argument_spec=dict(
-            command = dict(default=None, required=True, choices=command_required_param_map.keys()),
-            user = dict(default=None, required=True),
-            password = dict(default=None, required=True),
-            url = dict(default=None, required=True),
-            expire = dict(default=None, required=False),
-            label = dict(default=None, required=False),
-            minimum = dict(default=None, required=False),
-            mname = dict(default=None, required=False),
-            nameservergroup = dict(default=None, required=False),
-            nameservers = dict(default=None, required=False),
-            records = dict(default=None, required=False),
-            rname = dict(default=None, required=False),
-            refresh = dict(default=None, required=False),
-            retry = dict(default=None, required=False),
-            zone = dict(default=None, required=False),
-            zonename = dict(default=None, required=False),
-            zonettl = dict(default=None, required=False),
+            command=dict(default=None, required=True, choices=command_required_param_map.keys()),
+            user=dict(default=None, required=True),
+            password=dict(default=None, required=True),
+            url=dict(default=None, required=True),
+            expire=dict(default=None, required=False),
+            label=dict(default=None, required=False),
+            minimum=dict(default=None, required=False),
+            mname=dict(default=None, required=False),
+            nameservergroup=dict(default=None, required=False),
+            nameservers=dict(default=None, required=False),
+            records=dict(default=None, required=False),
+            rname=dict(default=None, required=False),
+            refresh=dict(default=None, required=False),
+            retry=dict(default=None, required=False),
+            zone=dict(default=None, required=False),
+            zonename=dict(default=None, required=False),
+            zonettl=dict(default=None, required=False),
         )
     )
 
@@ -148,21 +147,25 @@ def main():
     # create the atomiaclient
     client = AtomiaClient(url, user, password)
 
-    args = []
-    for param in command_required_param_map.get(command, ()):
+    args = dict()
+    for param in command_required_param_map.get(command):
         if not module.params[param]:
             module.fail_json(msg='%s param is required for command=%s' % (param, command))
         else:
-            args.append(module.params)
+            if param == 'nameservers':
+                args[param] = module.params[param].split(',')
+            elif param == 'records':
+                args[param] = json.loads(module.params[param])
+            else:
+                args[param] = module.params[param]
     changed = False
-    try:
-        ret = getattr(client, command)(*args)
+    retval = getattr(client, command)(**args)
+    ret = json.loads(retval)
+    if 'error_message' in ret:
+        module.fail_json(changed=changed, msg=ret, cmd=command)
+    else:
         changed = True
-    except HTTPError, e:
-        ret = "Error: command %s: %s" %(e.errno, e.message)
-    print ret
-    module.exit_json(changed=changed, out=ret, cmd=command)
-
+        module.exit_json(changed=changed, out=ret, cmd=command)
 
 # this is magic, see lib/ansible/module_common.py
 #<<INCLUDE_ANSIBLE_MODULE_COMMON>>
