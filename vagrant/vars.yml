@@ -1,0 +1,10 @@
+---
+db_password: "aoeunt896.yixnafoyicoea3"
+powerdns_db_password: "&%IDEo9ky316yjdIA"
+servername: precise64
+soap_username: admin_soap@sejo-it.be
+soap_password: soap_test_pass
+soap_url: http://precise64/atomiadns.json
+auth_admin_user: admin@sejo-it.be
+auth_admin_pass: auth_test_passs
+
