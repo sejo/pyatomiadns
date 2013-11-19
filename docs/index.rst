@@ -26,6 +26,7 @@ This playbook shows you how to install and configure atomiadns and runs some bas
 I use the standard precise64 box:
 
 .. code-block:: bash
+
     vagrant box add precise64 http://files.vagrantup.com/precise64.box
 
 Run above command to get the correct box.
