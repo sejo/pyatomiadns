@@ -4,17 +4,18 @@ GetAllZones:
 GetLabels:
  args:
    - "zone"
- docstring: "GetLabels returns all the labels for a certain zone.
+ docstring: |
+  GetLabels returns all the labels for a certain zone.
 
 
-      :param zone: `str` zone (example.org, sejo-it.be,...)"
+  :param zone: `str` zone (example.org, sejo-it.be,...)
 GetZone:
  args:
    - "zone"
- docstring: "GetZone returns the complete zone info with all records
+ docstring: |
+  GetZone returns the complete zone info with all records
 
-
-     :param zone: `str` zone (example.org, sejo-it.be,...)"
+  :param zone: `str` zone (example.org, sejo-it.be,...)
 GetDnsRecords:
  args:
   - "zone"
@@ -32,36 +33,37 @@ AddZone:
   - "minimum"
   - "nameservers"
   - "nameservergroup"
- docstring: "Add a zone to the Atomia DNS master database.
+ docstring: |
+  Add a zone to the Atomia DNS master database.
 
 
- :param zonename: `str` the name of the zone
+   :param zonename: `str` the name of the zone
 
- :param zonettl: `int` the ttl of the SOA-record and the NS-records
+   :param zonettl: `int` the ttl of the SOA-record and the NS-records
 
- :param mname: `str` the SOA mname field
+   :param mname: `str` the SOA mname field
 
- :param rname: `str` the SOA rname field
+   :param rname: `str` the SOA rname field
 
- :param refresh: `int` the SOA refresh field
+   :param refresh: `int` the SOA refresh field
 
- :param retry: `int` the SOA retry field
+   :param retry: `int` the SOA retry field
 
- :param expire: `int` the SOA expire field
+   :param expire: `int` the SOA expire field
 
- :param minimum: `int` the SOA minimum field
+   :param minimum: `int` the SOA minimum field
 
- :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+   :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
 
- :param nameservergroup: `str` the nameserver group that should host the zone
- "
+   :param nameservergroup: `str` the nameserver group that should host the zone
+
 DeleteZone:
  args:
   - "zone"
- docstring: "Deletes a zone from the database.
+ docstring: |
+   Deletes a zone from the database.
 
-
- :param zone: `str` the name of the zone"
+    :param zone: `str` the name of the zone
 EditZone:
  args:
   - "zonename"
@@ -74,53 +76,43 @@ EditZone:
   - "minimum"
   - "nameservers"
   - "nameservergroup"
- docstring: "Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
+ docstring: |
+  Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
 
-
- :param zonename: `str` the name of the zone
-
- :param zonettl: `int` the ttl of the SOA-record and the NS-records
-
- :param mname: `str` the SOA mname field
-
- :param rname: `str` the SOA rname field
-
- :param refresh: `int` the SOA refresh field
-
- :param retry: `int` the SOA retry field
-
- :param expire: `int` the SOA expire field
-
- :param minimum: `int` the SOA minimum field
-
- :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
-
- :param nameservergroup: `str` the nameserver group that should host the zone
- "
+   :param zonename: `str` the name of the zone
+   :param zonettl: `int` the ttl of the SOA-record and the NS-records
+   :param mname: `str` the SOA mname field
+   :param rname: `str` the SOA rname field
+   :param refresh: `int` the SOA refresh field
+   :param retry: `int` the SOA retry field
+   :param expire: `int` the SOA expire field
+   :param minimum: `int` the SOA minimum field
+   :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+   :param nameservergroup: `str` the nameserver group that should host the zone
 AddNameserver:
  args:
   - "nameserver"
   - "nameservergroup"
- docstring: "Add a nameserver as a subscriber of changes to the data set in this server.
+ docstring: |
+   Add a nameserver as a subscriber of changes to the data set in this server.
 
-
- :param nameserver: `str` the servername to add as a subscriber
-
- :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for"
+    :param nameserver: `str` the servername to add as a subscriber
+    :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
 DeleteNameserver:
  args:
   - "nameserver"
- docstring: "Remove a nameserver as a subscriber of changes to the data set in this server.
+ docstring: |
+   Remove a nameserver as a subscriber of changes to the data set in this server.
 
-
- :param nameserver: `str` the servername to remove as a subscriber"
+   :param nameserver: `str` the servername to remove as a subscriber
 GetNameserver:
  args:
   - "nameserver"
- docstring: "Gets the group name that a nameserver is configured as a subscriber for.
+ docstring: |
+   Gets the group name that a nameserver is configured as a subscriber for.
 
 
- :param nameserver: `str` the servername to get information for"
+    :param nameserver: `str` the servername to get information for
 ReloadAllZones:
  args: null
  docstring: "Mark all zones in the database as changed."
@@ -162,7 +154,8 @@ AddDNSSECKey:
   - "keysize"
   - "keytype"
   - "activated"
- docstring: 'Adds a DNSSEC key to the database.
+ docstring: |
+  Adds a DNSSEC key to the database.
 
   default algorithm:  RSASHA256
   for KSK use keysize 2048, for ZSK use 1024
@@ -170,30 +163,34 @@ AddDNSSECKey:
   :param algorithm: `str` defaults to RSASHA256
   :param keysize: `int` size of key in bit (1024, 2048,...)
   :param keytype: `str` KSK or ZSK
-  :param activated: `str` yes or no'
+  :param activated: `str` yes or no
 AddNameserverGroup:
  args:
   - "groupname"
- docstring: 'Add a nameserver group.
+ docstring: |
+  Add a nameserver group.
 
-  :param groupname: `str` name of the group you wish to add'
+   :param groupname: `str` name of the group you wish to add
 DeleteNameServerGroup:
  args:
   - "groupname"
- docstring: 'Delete a nameserver group.
+ docstring: |
+   Delete a nameserver group.
 
-  :param groupname: `str` name of the group you wish to delete'
+    :param groupname: `str` name of the group you wish to delete
 AddAccount:
  args:
  - "email"
  - "password_soap"
- docstring: ' Add an account for soap
+ docstring: |
+  Add an account for soap
 
- :param email: `str` email used as login
- :param paswword_soap: `str` password for the user'
+  :param email: `str` email used as login
+  :param paswword_soap: `str` password for the user
 DeleteAccount:
  args:
  - "email"
- docstring: 'Removes a soap account
+ docstring: |
+   Removes a soap account
 
- :param email: `str` email off the account'
+   :param email: `str` email off the account

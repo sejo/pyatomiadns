@@ -38,7 +38,9 @@ class AtomiaClient():
     def GetLabels(self, zone):
         """GetLabels returns all the labels for a certain zone.
 
+
 :param zone: `str` zone (example.org, sejo-it.be,...)
+
         """
         arguments = [zone,]
         data = json.dumps(arguments)
@@ -48,7 +50,8 @@ class AtomiaClient():
     def DeleteZone(self, zone):
         """Deletes a zone from the database.
 
-:param zone: `str` the name of the zone
+ :param zone: `str` the name of the zone
+
         """
         arguments = [zone,]
         data = json.dumps(arguments)
@@ -57,8 +60,15 @@ class AtomiaClient():
     
     def AddDNSSECKey(self, algorithm, keysize, keytype, activated):
         """Adds a DNSSEC key to the database.
-default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
-:param algorithm: `str` defaults to RSASHA256 :param keysize: `int` size of key in bit (1024, 2048,...) :param keytype: `str` KSK or ZSK :param activated: `str` yes or no
+
+default algorithm:  RSASHA256
+for KSK use keysize 2048, for ZSK use 1024
+
+:param algorithm: `str` defaults to RSASHA256
+:param keysize: `int` size of key in bit (1024, 2048,...)
+:param keytype: `str` KSK or ZSK
+:param activated: `str` yes or no
+
         """
         arguments = [algorithm,keysize,keytype,activated,]
         data = json.dumps(arguments)
@@ -67,7 +77,9 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
     
     def AddNameserverGroup(self, groupname):
         """Add a nameserver group.
-:param groupname: `str` name of the group you wish to add
+
+ :param groupname: `str` name of the group you wish to add
+
         """
         arguments = [groupname,]
         data = json.dumps(arguments)
@@ -101,16 +113,27 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
     def AddZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
         """Add a zone to the Atomia DNS master database.
 
-:param zonename: `str` the name of the zone
-:param zonettl: `int` the ttl of the SOA-record and the NS-records
-:param mname: `str` the SOA mname field
-:param rname: `str` the SOA rname field
-:param refresh: `int` the SOA refresh field
-:param retry: `int` the SOA retry field
-:param expire: `int` the SOA expire field
-:param minimum: `int` the SOA minimum field
-:param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
-:param nameservergroup: `str` the nameserver group that should host the zone 
+
+ :param zonename: `str` the name of the zone
+
+ :param zonettl: `int` the ttl of the SOA-record and the NS-records
+
+ :param mname: `str` the SOA mname field
+
+ :param rname: `str` the SOA rname field
+
+ :param refresh: `int` the SOA refresh field
+
+ :param retry: `int` the SOA retry field
+
+ :param expire: `int` the SOA expire field
+
+ :param minimum: `int` the SOA minimum field
+
+ :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+
+ :param nameservergroup: `str` the nameserver group that should host the zone
+
         """
         arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
@@ -141,16 +164,17 @@ One should only provide the labels in a following format
     def EditZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
         """Edits a zone. This is only for completeness, and could be done by editing the SOA and NS-records directly as well.
 
-:param zonename: `str` the name of the zone
-:param zonettl: `int` the ttl of the SOA-record and the NS-records
-:param mname: `str` the SOA mname field
-:param rname: `str` the SOA rname field
-:param refresh: `int` the SOA refresh field
-:param retry: `int` the SOA retry field
-:param expire: `int` the SOA expire field
-:param minimum: `int` the SOA minimum field
-:param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
-:param nameservergroup: `str` the nameserver group that should host the zone 
+ :param zonename: `str` the name of the zone
+ :param zonettl: `int` the ttl of the SOA-record and the NS-records
+ :param mname: `str` the SOA mname field
+ :param rname: `str` the SOA rname field
+ :param refresh: `int` the SOA refresh field
+ :param retry: `int` the SOA retry field
+ :param expire: `int` the SOA expire field
+ :param minimum: `int` the SOA minimum field
+ :param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets ([\"dns1.example.org\",\"dns2.example.org\"])
+ :param nameservergroup: `str` the nameserver group that should host the zone
+
         """
         arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
@@ -159,6 +183,7 @@ One should only provide the labels in a following format
     
     def DeleteAccount(self, email):
         """Removes a soap account
+
 :param email: `str` email off the account
         """
         arguments = [email,]
@@ -169,7 +194,9 @@ One should only provide the labels in a following format
     def GetNameserver(self, nameserver):
         """Gets the group name that a nameserver is configured as a subscriber for.
 
-:param nameserver: `str` the servername to get information for
+
+ :param nameserver: `str` the servername to get information for
+
         """
         arguments = [nameserver,]
         data = json.dumps(arguments)
@@ -186,7 +213,9 @@ One should only provide the labels in a following format
     
     def DeleteNameServerGroup(self, groupname):
         """Delete a nameserver group.
-:param groupname: `str` name of the group you wish to delete
+
+ :param groupname: `str` name of the group you wish to delete
+
         """
         arguments = [groupname,]
         data = json.dumps(arguments)
@@ -197,6 +226,7 @@ One should only provide the labels in a following format
         """Remove a nameserver as a subscriber of changes to the data set in this server.
 
 :param nameserver: `str` the servername to remove as a subscriber
+
         """
         arguments = [nameserver,]
         data = json.dumps(arguments)
@@ -204,8 +234,11 @@ One should only provide the labels in a following format
         return self.process_response(response)
     
     def AddAccount(self, email, password_soap):
-        """ Add an account for soap
-:param email: `str` email used as login :param paswword_soap: `str` password for the user
+        """Add an account for soap
+
+:param email: `str` email used as login
+:param paswword_soap: `str` password for the user
+
         """
         arguments = [email,password_soap,]
         data = json.dumps(arguments)
@@ -216,6 +249,7 @@ One should only provide the labels in a following format
         """GetZone returns the complete zone info with all records
 
 :param zone: `str` zone (example.org, sejo-it.be,...)
+
         """
         arguments = [zone,]
         data = json.dumps(arguments)
@@ -225,8 +259,9 @@ One should only provide the labels in a following format
     def AddNameserver(self, nameserver, nameservergroup):
         """Add a nameserver as a subscriber of changes to the data set in this server.
 
-:param nameserver: `str` the servername to add as a subscriber
-:param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
+ :param nameserver: `str` the servername to add as a subscriber
+ :param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
+
         """
         arguments = [nameserver,nameservergroup,]
         data = json.dumps(arguments)
