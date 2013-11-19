@@ -1,0 +1,89 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: yes
+  vars_files:
+      - vars.yml
+  tasks:
+    - name: add python-pycurl and other deps
+      apt: pkg={{ item }} state=present update_cache=yes
+      with_items:
+        - python-pycurl
+        - python-apt
+        - curl
+        - software-properties-common
+        - python-software-properties
+        - git
+    - name: add key
+      apt_key: data="{{ lookup('file', 'atomiakey.txt') }}" state=present
+    - name: add repo
+      apt_repository: repo="deb http://public.apt.atomia.com/ubuntu-precise precise main" state=present
+    - name: install atomiadns server and client and rng-tools
+      apt: pkg=$item state=present force=yes update_cache=yes
+      with_items:
+          - atomiadns-masterserver
+          - atomiadns-client
+          - rng-tools
+          - python-mysqldb
+          - vim
+          - python-psycopg2
+    - name: add HRNGDEVICE
+      lineinfile: dest=/etc/default/rng-tools line='HRNGDEVICE=/dev/urandom' regexp='urandom' insertafter=EOF
+    - name: rng-tools startup
+      service: name=rng-tools state=started enabled=true
+    - name: install webapp
+      apt: pkg=atomiadns-webapp state=present force=yes
+    - name: install powerdns
+      apt: pkg=atomiadns-powerdns-database state=present force=yes
+    - name: get powerdns.deb
+      command: wget -O /tmp/pdns-static_3.2-rc4-1_amd64.deb http://powerdnssec.org/downloads/packages/pdns-static_3.2-rc4-1_amd64.deb
+    - name: install powerdns
+      command: dpkg --force-confdef -i /tmp/pdns-static_3.2-rc4-1_amd64.deb
+    - name: copy config pdns
+      template: src=pdns.conf.j2 dest=/etc/powerdns/pdns.conf
+    - name: mysqluser pdns
+      action: mysql_user name=powerdns login_host=localhost host=localhost password={{ powerdns_db_password }} priv=powerdns.*:ALL state=present
+    - name: psql atomiadns
+      command: sudo -u postgres psql -c "alter user atomiadns with password '{{ db_password }}';"
+    - name: pg_hba fix
+      template: src=pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf
+      notify:
+          - restart postgresql
+    - name: atomiadns config
+      template: src=atomiadns.conf.j2 dest=/etc/atomiadns.conf
+      notify:
+          - restart powerdns
+          - restart atomiadns-web
+    - name: add atomiadns
+      git: dest=/tmp/pyatomiadns version=1.3 repo=http://gitlab.sejo-it.be/sejo/pyatomiadns.git
+    - name: python setup pyatomiadns
+      command: chdir=/tmp/pyatomiadns python setup.py install
+    - name: setup soapuser (with admin account!)
+      atomiadns: command=account url={{ soap_url }} user={{auth_admin_user}} password={{auth_admin_pass}} email={{ soap_username }} password_soap={{ soap_password }} state=present
+    - name: add KSK key
+      atomiadns: command=dnssec_key url={{ soap_url }} user={{auth_admin_user}} password={{auth_admin_pass}} algorithm=RSASHA256 keysize=2048 keytype=KSK activated=yes state=present
+    - name: add active ZSK key
+      atomiadns: command=dnssec_key url={{ soap_url }} user={{auth_admin_user}} password={{auth_admin_pass}} algorithm=RSASHA256 keysize=1024 keytype=ZSK activated=yes state=present
+    - name: add inactive ZSK key
+      atomiadns: command=dnssec_key url={{ soap_url }} user={{auth_admin_user}} password={{auth_admin_pass}} algorithm=RSASHA256 keysize=1024 keytype=ZSK activated=no state=present
+    - name: add default nameserver group
+      atomiadns: command=nameserver_group url={{ soap_url }} user={{auth_admin_user}} password={{auth_admin_pass}} groupname=default state=present
+    - name: add sejo-int zone
+      atomiadns: command=zone url={{ soap_url }} user={{soap_username}} password={{soap_password}} zonename='sejo-int.be' zonettl=3600 mname='precise64.sejo-int.be.' rname='root.precise64.sejo-int.be.' refresh=3600 retry=3600 expire=3600 minimum=3600 nameservers='precise64.sejo-int.be.' nameservergroup=default state=present
+    - name: add records
+      atomiadns: command=dns_records state=present url={{ soap_url }} user={{soap_username}} password={{soap_password}} zone='sejo-int.be' records='[{"ttl":"120","label":"www","class":"IN","type":"A","rdata":"10.0.2.15"}]'
+    - name: add more records
+      atomiadns: command=dns_records state=present url={{ soap_url }} user={{soap_username}} password={{soap_password}} zone='sejo-int.be' records='[{"ttl":"120","label":"ww1","class":"IN","type":"A","rdata":"10.0.2.16"},{"ttl":"120","label":"ww2","class":"IN","type":"A","rdata":"10.0.2.17"}]'
+    - name: delete records
+      atomiadns: command=dns_records state=absent url={{ soap_url }} user={{soap_username}} password={{soap_password}} zone='sejo-int.be' records='[{"label":"ww1"},{"label":"ww2"}]'
+  handlers:
+    - name: restart rng
+      service: name=rng-tools state=restarted
+    - name: restart powerdns
+      service: name=pdns state=restarted
+    - name: restart atomiadns-web
+      service: name=atomiadns-webapp state=restarted
+    - name: restart atomiadns-pdns
+      service: name=atomiadns-powerdnssync state=restarted
+    - name: restart postgresql
+      service: name=postgresql state=restarted

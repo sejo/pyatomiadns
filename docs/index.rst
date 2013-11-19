@@ -1,24 +1,34 @@
 Welcome to pyatomiadns's documentation!
 =======================================
 
-This is the main and official documentation for pyatomiadns.
+This is the main and official documentation for pyatomiadns. pyatomiadns is still in BETA, test before use!
 
 My name is Jochen Maes and you can contact me @ firstname dot sejo dash it dot be, I'm also online on freenode, oftc as sejo.
 I wrote this to be able to populate my dns servers with ansible.
-I'll add a link to the correct project for the ansible module when I finish it.
+
+The ansible module can be found under pyatomiadns/ansible/atomiadns.py.
 
 You can find the code of this project here:
 https://github.com/sejo/pyatomiadns
 
-TODO
-====
 
-- create setup.py file
-- create pypi package
-- improve documentation
-- improve checks on generated methods
-- improve errorhandling
-- ... other idea's?
+Thanks
+======
+
+For the release of the 1.3 branch I would like to thank `Amplidata NV`_ for the time I was allowed to spend on creating and testing the 1.3 branch.
+
+How to test
+===========
+
+On github in the vagrant folder you will see a Vagrant file and a crude ansible playbook.
+This playbook shows you how to install and configure atomiadns and runs some basic ansible commands for atomiadns.
+
+I use the standard precise64 box:
+
+.. code-block:: bash
+    vagrant box add precise64 http://files.vagrantup.com/precise64.box
+
+Run above command to get the correct box.
 
 
 How to generate the api client file
@@ -51,3 +61,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. _Amplidata NV: http://amplidata.com

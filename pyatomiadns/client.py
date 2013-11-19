@@ -55,31 +55,43 @@ class AtomiaClient():
         response = self.request("DeleteZone", data)
         return self.process_response(response)
     
-    def GetNameserver(self, nameserver):
-        """Gets the group name that a nameserver is configured as a subscriber for.
-
-:param nameserver: `str` the servername to get information for
+    def AddDNSSECKey(self, algorithm, keysize, keytype, activated):
+        """Adds a DNSSEC key to the database.
+default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
+:param algorithm: `str` defaults to RSASHA256 :param keysize: `int` size of key in bit (1024, 2048,...) :param keytype: `str` KSK or ZSK :param activated: `str` yes or no
         """
-        arguments = [nameserver,]
+        arguments = [algorithm,keysize,keytype,activated,]
         data = json.dumps(arguments)
-        response = self.request("GetNameserver", data)
+        response = self.request("AddDNSSECKey", data)
         return self.process_response(response)
     
-    def GetDnsRecords(self, zone, label):
-        """GetRecord will fetch full record information for zone and label given
+    def AddNameserverGroup(self, groupname):
+        """Add a nameserver group.
+:param groupname: `str` name of the group you wish to add
         """
-        arguments = [zone,label,]
+        arguments = [groupname,]
         data = json.dumps(arguments)
-        response = self.request("GetDnsRecords", data)
+        response = self.request("AddNameserverGroup", data)
         return self.process_response(response)
     
     def AddDnsRecords(self, zone, records):
         """Adds a list of records to a zone.
 
-A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN", "type" : "A", "rdata" : "192.168.0.1" }
 
-:param zone: `str` the name of the zone
-:param records: `list` list of dicts containing the records
+ A record dict is the following:
+ {
+      "ttl":  "3600",
+      "label" : "@",
+      "class" : "IN",
+      "type" : "A",
+      "rdata" : "192.168.0.1"
+ }
+
+
+ :param zone: `str` the name of the zone
+
+ :param records: `list` list of dicts containing the records'
+
         """
         arguments = [zone,records,]
         data = json.dumps(arguments)
@@ -105,35 +117,17 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
         response = self.request("AddZone", data)
         return self.process_response(response)
     
-    def DeleteNameserver(self, nameserver):
-        """Remove a nameserver as a subscriber of changes to the data set in this server.
+    def DeleteDnsRecords(self, zone, records):
+        """Removes the given records.
 
-:param nameserver: `str` the servername to remove as a subscriber
-        """
-        arguments = [nameserver,]
-        data = json.dumps(arguments)
-        response = self.request("DeleteNameserver", data)
-        return self.process_response(response)
-    
-    def GetZone(self, zone):
-        """GetZone returns the complete zone info with all records
+One should only provide the labels in a following format
 
-:param zone: `str` zone (example.org, sejo-it.be,...)
-        """
-        arguments = [zone,]
-        data = json.dumps(arguments)
-        response = self.request("GetZone", data)
-        return self.process_response(response)
-    
-    def AddNameserver(self, nameserver, nameservergroup):
-        """Add a nameserver as a subscriber of changes to the data set in this server.
+'[{"label": "www"}, {"label": "bleh"}]'
 
-:param nameserver: `str` the servername to add as a subscriber
-:param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
         """
-        arguments = [nameserver,nameservergroup,]
+        arguments = [zone,records,]
         data = json.dumps(arguments)
-        response = self.request("AddNameserver", data)
+        response = self.request("DeleteDnsRecords", data)
         return self.process_response(response)
     
     def GetAllZones(self):
@@ -161,6 +155,82 @@ A record dict is the following: { "ttl":  "3600", "label" : "@", "class" : "IN",
         arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
         response = self.request("EditZone", data)
+        return self.process_response(response)
+    
+    def DeleteAccount(self, email):
+        """Removes a soap account
+:param email: `str` email off the account
+        """
+        arguments = [email,]
+        data = json.dumps(arguments)
+        response = self.request("DeleteAccount", data)
+        return self.process_response(response)
+    
+    def GetNameserver(self, nameserver):
+        """Gets the group name that a nameserver is configured as a subscriber for.
+
+:param nameserver: `str` the servername to get information for
+        """
+        arguments = [nameserver,]
+        data = json.dumps(arguments)
+        response = self.request("GetNameserver", data)
+        return self.process_response(response)
+    
+    def GetDnsRecords(self, zone, label):
+        """GetRecord will fetch full record information for zone and label given
+        """
+        arguments = [zone,label,]
+        data = json.dumps(arguments)
+        response = self.request("GetDnsRecords", data)
+        return self.process_response(response)
+    
+    def DeleteNameServerGroup(self, groupname):
+        """Delete a nameserver group.
+:param groupname: `str` name of the group you wish to delete
+        """
+        arguments = [groupname,]
+        data = json.dumps(arguments)
+        response = self.request("DeleteNameServerGroup", data)
+        return self.process_response(response)
+    
+    def DeleteNameserver(self, nameserver):
+        """Remove a nameserver as a subscriber of changes to the data set in this server.
+
+:param nameserver: `str` the servername to remove as a subscriber
+        """
+        arguments = [nameserver,]
+        data = json.dumps(arguments)
+        response = self.request("DeleteNameserver", data)
+        return self.process_response(response)
+    
+    def AddAccount(self, email, password_soap):
+        """ Add an account for soap
+:param email: `str` email used as login :param paswword_soap: `str` password for the user
+        """
+        arguments = [email,password_soap,]
+        data = json.dumps(arguments)
+        response = self.request("AddAccount", data)
+        return self.process_response(response)
+    
+    def GetZone(self, zone):
+        """GetZone returns the complete zone info with all records
+
+:param zone: `str` zone (example.org, sejo-it.be,...)
+        """
+        arguments = [zone,]
+        data = json.dumps(arguments)
+        response = self.request("GetZone", data)
+        return self.process_response(response)
+    
+    def AddNameserver(self, nameserver, nameservergroup):
+        """Add a nameserver as a subscriber of changes to the data set in this server.
+
+:param nameserver: `str` the servername to add as a subscriber
+:param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
+        """
+        arguments = [nameserver,nameservergroup,]
+        data = json.dumps(arguments)
+        response = self.request("AddNameserver", data)
         return self.process_response(response)
     
     def ReloadAllZones(self):
