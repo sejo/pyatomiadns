@@ -209,9 +209,6 @@ def main():
             elif param == 'records':
                 rlist = list()
                 records = module.params[param]
-                f = open('/tmp/output.txt', 'w+')
-                f.write("%s" % records)
-                f.close()
                 if isinstance(records, list):
                     for jstr in module.params[param]:
                         rlist.append(json.loads(jstr))
