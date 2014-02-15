@@ -197,3 +197,6 @@ DeleteAccount:
  docstring: 'Removes a soap account
 
  :param email: `str` email off the account'
+
+Noop:
+ docstring: "Noop command used to authenticate"

@@ -98,23 +98,22 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
         response = self.request("AddDnsRecords", data)
         return self.process_response(response)
     
-    def AddZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
-        """Add a zone to the Atomia DNS master database.
-
-:param zonename: `str` the name of the zone
-:param zonettl: `int` the ttl of the SOA-record and the NS-records
-:param mname: `str` the SOA mname field
-:param rname: `str` the SOA rname field
-:param refresh: `int` the SOA refresh field
-:param retry: `int` the SOA retry field
-:param expire: `int` the SOA expire field
-:param minimum: `int` the SOA minimum field
-:param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
-:param nameservergroup: `str` the nameserver group that should host the zone 
+    def Noop(self):
+        """Noop command used to authenticate
         """
-        arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
+        arguments = []
         data = json.dumps(arguments)
-        response = self.request("AddZone", data)
+        response = self.request("Noop", data)
+        return self.process_response(response)
+    
+    def GetZone(self, zone):
+        """GetZone returns the complete zone info with all records
+
+:param zone: `str` zone (example.org, sejo-it.be,...)
+        """
+        arguments = [zone,]
+        data = json.dumps(arguments)
+        response = self.request("GetZone", data)
         return self.process_response(response)
     
     def DeleteDnsRecords(self, zone, records):
@@ -212,14 +211,23 @@ One should only provide the labels in a following format
         response = self.request("AddAccount", data)
         return self.process_response(response)
     
-    def GetZone(self, zone):
-        """GetZone returns the complete zone info with all records
+    def AddZone(self, zonename, zonettl, mname, rname, refresh, retry, expire, minimum, nameservers, nameservergroup):
+        """Add a zone to the Atomia DNS master database.
 
-:param zone: `str` zone (example.org, sejo-it.be,...)
+:param zonename: `str` the name of the zone
+:param zonettl: `int` the ttl of the SOA-record and the NS-records
+:param mname: `str` the SOA mname field
+:param rname: `str` the SOA rname field
+:param refresh: `int` the SOA refresh field
+:param retry: `int` the SOA retry field
+:param expire: `int` the SOA expire field
+:param minimum: `int` the SOA minimum field
+:param nameservers: `str` a string of the hostnames of the nameservers for the zone comma separated within brackets (["dns1.example.org","dns2.example.org"])
+:param nameservergroup: `str` the nameserver group that should host the zone 
         """
-        arguments = [zone,]
+        arguments = [zonename,zonettl,mname,rname,refresh,retry,expire,minimum,nameservers,nameservergroup,]
         data = json.dumps(arguments)
-        response = self.request("GetZone", data)
+        response = self.request("AddZone", data)
         return self.process_response(response)
     
     def AddNameserver(self, nameserver, nameservergroup):
