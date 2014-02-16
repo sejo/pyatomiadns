@@ -258,10 +258,12 @@ RestoreZoneBinary:
  - "zone"
  - "nameservergroup"
  - "data"
- docstring: 'Restores the zone
+ docstring: "Restores the zone
 
 
  :param zone: `str` zone name
+
  :param nameservergroup: `str` name of the nameserver group
+
  :param data: `str` data to restore
- '
+ "

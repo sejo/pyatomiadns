@@ -177,7 +177,9 @@ One should only provide the labels in a following format
     def RestoreZoneBinary(self, zone, nameservergroup, data):
         """Restores the zone
 
-:param zone: `str` zone name :param nameservergroup: `str` name of the nameserver group :param data: `str` data to restore 
+:param zone: `str` zone name
+:param nameservergroup: `str` name of the nameserver group
+:param data: `str` data to restore 
         """
         arguments = [zone,nameservergroup,data,]
         data = json.dumps(arguments)
