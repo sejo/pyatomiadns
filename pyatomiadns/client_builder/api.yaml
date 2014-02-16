@@ -197,12 +197,13 @@ AddAccount:
  args:
  - "email"
  - "password_soap"
- docstring: ' Add an account for soap
+ docstring: "Adds an account for soap
 
 
  :param email: `str` email used as login
 
- :param paswword_soap: `str` password for the user'
+ :param paswword_soap: `str` password for the user
+ "
 DeleteAccount:
  args:
  - "email"
