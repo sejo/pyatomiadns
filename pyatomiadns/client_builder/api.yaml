@@ -176,11 +176,13 @@ AddNameserverGroup:
   - "groupname"
  docstring: 'Add a nameserver group.
 
+
   :param groupname: `str` name of the group you wish to add'
 DeleteNameServerGroup:
  args:
   - "groupname"
  docstring: 'Delete a nameserver group.
+
 
   :param groupname: `str` name of the group you wish to delete'
 AddAccount:
@@ -189,12 +191,14 @@ AddAccount:
  - "password_soap"
  docstring: ' Add an account for soap
 
+
  :param email: `str` email used as login
  :param paswword_soap: `str` password for the user'
 DeleteAccount:
  args:
  - "email"
  docstring: 'Removes a soap account
+
 
  :param email: `str` email of the account'
 
@@ -209,6 +213,7 @@ FindZones:
  - "offset"
  docstring: ' Finds zones according to the pattern
 
+
  :param email: `str` email of the account
  :param pattern: `str` the pattern to search for with SQL LIKE semantics
  :param count: `int` the max number of zones to return
@@ -221,6 +226,7 @@ EditDnsRecords:
  - "records"
  docstring: 'Edits the records for a certain label
 
+
  :param zone: `str` zone name
  :param records: `list` for format see AddDnsRecords
  '
@@ -228,6 +234,7 @@ GetZoneBinary:
  args:
  - "zone"
  docstring: 'Gets the binary data for the zone, this can be used to restore zones
+
 
  :param zone: `str` zone name
  '
@@ -237,6 +244,7 @@ RestoreZoneBinary:
  - "nameservergroup"
  - "data"
  docstring: 'Restores the zone
+
 
  :param zone: `str` zone name
  :param nameservergroup: `str` name of the nameserver group
