@@ -65,6 +65,14 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
         response = self.request("AddDNSSECKey", data)
         return self.process_response(response)
     
+    def ReloadAllZones(self):
+        """Mark all zones in the database as changed.
+        """
+        arguments = []
+        data = json.dumps(arguments)
+        response = self.request("ReloadAllZones", data)
+        return self.process_response(response)
+    
     def AddNameserverGroup(self, groupname):
         """Add a nameserver group.
 :param groupname: `str` name of the group you wish to add
@@ -106,14 +114,13 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
         response = self.request("Noop", data)
         return self.process_response(response)
     
-    def GetZone(self, zone):
-        """GetZone returns the complete zone info with all records
-
-:param zone: `str` zone (example.org, sejo-it.be,...)
+    def EditDnsRecords(self, zone, records):
+        """Edits the records for a certain label
+:param zone: `str` zone name :param records: `list` for format see AddDnsRecords 
         """
-        arguments = [zone,]
+        arguments = [zone,records,]
         data = json.dumps(arguments)
-        response = self.request("GetZone", data)
+        response = self.request("EditDnsRecords", data)
         return self.process_response(response)
     
     def DeleteDnsRecords(self, zone, records):
@@ -156,9 +163,18 @@ One should only provide the labels in a following format
         response = self.request("EditZone", data)
         return self.process_response(response)
     
+    def RestoreZoneBinary(self, zone, nameservergroup, data):
+        """Restores the zone
+:param zone: `str` zone name :param nameservergroup: `str` name of the nameserver group :param data: `str` b64encoded data to restore 
+        """
+        arguments = [zone,nameservergroup,data,]
+        data = json.dumps(arguments)
+        response = self.request("RestoreZoneBinary", data)
+        return self.process_response(response)
+    
     def DeleteAccount(self, email):
         """Removes a soap account
-:param email: `str` email off the account
+:param email: `str` email of the account
         """
         arguments = [email,]
         data = json.dumps(arguments)
@@ -175,12 +191,15 @@ One should only provide the labels in a following format
         response = self.request("GetNameserver", data)
         return self.process_response(response)
     
-    def GetDnsRecords(self, zone, label):
-        """GetRecord will fetch full record information for zone and label given
+    def AddNameserver(self, nameserver, nameservergroup):
+        """Add a nameserver as a subscriber of changes to the data set in this server.
+
+:param nameserver: `str` the servername to add as a subscriber
+:param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
         """
-        arguments = [zone,label,]
+        arguments = [nameserver,nameservergroup,]
         data = json.dumps(arguments)
-        response = self.request("GetDnsRecords", data)
+        response = self.request("AddNameserver", data)
         return self.process_response(response)
     
     def DeleteNameServerGroup(self, groupname):
@@ -190,6 +209,15 @@ One should only provide the labels in a following format
         arguments = [groupname,]
         data = json.dumps(arguments)
         response = self.request("DeleteNameServerGroup", data)
+        return self.process_response(response)
+    
+    def GetZoneBinary(self, zone):
+        """Gets the binary data for the zone, this can be used to restore zones
+:param zone: `str` zone name 
+        """
+        arguments = [zone,]
+        data = json.dumps(arguments)
+        response = self.request("GetZoneBinary", data)
         return self.process_response(response)
     
     def DeleteNameserver(self, nameserver):
@@ -230,22 +258,30 @@ One should only provide the labels in a following format
         response = self.request("AddZone", data)
         return self.process_response(response)
     
-    def AddNameserver(self, nameserver, nameservergroup):
-        """Add a nameserver as a subscriber of changes to the data set in this server.
-
-:param nameserver: `str` the servername to add as a subscriber
-:param nameservergroup: `str` the nameserver group that this nameserver should subscribe to changes for
+    def FindZones(self, email, pattern, count, offset):
+        """ Finds zones according to the pattern
+:param email: `str` email of the account :param pattern: `str` the pattern to search for with SQL LIKE semantics :param count: `int` the max number of zones to return :param offset: `int` the offset of the first zone to return 
         """
-        arguments = [nameserver,nameservergroup,]
+        arguments = [email,pattern,count,offset,]
         data = json.dumps(arguments)
-        response = self.request("AddNameserver", data)
+        response = self.request("FindZones", data)
         return self.process_response(response)
     
-    def ReloadAllZones(self):
-        """Mark all zones in the database as changed.
+    def GetDnsRecords(self, zone, label):
+        """GetRecord will fetch full record information for zone and label given
         """
-        arguments = []
+        arguments = [zone,label,]
         data = json.dumps(arguments)
-        response = self.request("ReloadAllZones", data)
+        response = self.request("GetDnsRecords", data)
+        return self.process_response(response)
+    
+    def GetZone(self, zone):
+        """GetZone returns the complete zone info with all records
+
+:param zone: `str` zone (example.org, sejo-it.be,...)
+        """
+        arguments = [zone,]
+        data = json.dumps(arguments)
+        response = self.request("GetZone", data)
         return self.process_response(response)
     

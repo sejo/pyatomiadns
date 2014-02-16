@@ -196,7 +196,49 @@ DeleteAccount:
  - "email"
  docstring: 'Removes a soap account
 
- :param email: `str` email off the account'
+ :param email: `str` email of the account'
 
 Noop:
  docstring: "Noop command used to authenticate"
+
+FindZones:
+ args:
+ - "email"
+ - "pattern"
+ - "count"
+ - "offset"
+ docstring: ' Finds zones according to the pattern
+
+ :param email: `str` email of the account
+ :param pattern: `str` the pattern to search for with SQL LIKE semantics
+ :param count: `int` the max number of zones to return
+ :param offset: `int` the offset of the first zone to return
+ '
+
+EditDnsRecords:
+ args:
+ - "zone"
+ - "records"
+ docstring: 'Edits the records for a certain label
+
+ :param zone: `str` zone name
+ :param records: `list` for format see AddDnsRecords
+ '
+GetZoneBinary:
+ args:
+ - "zone"
+ docstring: 'Gets the binary data for the zone, this can be used to restore zones
+
+ :param zone: `str` zone name
+ '
+RestoreZoneBinary:
+ args:
+ - "zone"
+ - "nameservergroup"
+ - "data"
+ docstring: 'Restores the zone
+
+ :param zone: `str` zone name
+ :param nameservergroup: `str` name of the nameserver group
+ :param data: `str` data to restore
+ '

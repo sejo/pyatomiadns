@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pyatomiadns',
-    version='1.3',
+    version='1.4',
     author='Jochen Maes',
     author_email='jochen@sejo-it.be',
     packages=['pyatomiadns',],
