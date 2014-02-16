@@ -10,6 +10,4 @@ setup(
     license='LICENSE.txt',
     description='Manage AtomiaDNS instances with python',
     long_description=open('README.txt').read(),
-    install_requires=[
-    ],
 )
