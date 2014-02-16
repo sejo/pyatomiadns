@@ -58,7 +58,11 @@ class AtomiaClient():
     def AddDNSSECKey(self, algorithm, keysize, keytype, activated):
         """Adds a DNSSEC key to the database.
 default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
-:param algorithm: `str` defaults to RSASHA256 :param keysize: `int` size of key in bit (1024, 2048,...) :param keytype: `str` KSK or ZSK :param activated: `str` yes or no
+
+:param algorithm: `str` defaults to RSASHA256
+:param keysize: `int` size of key in bit (1024, 2048,...)
+:param keytype: `str` KSK or ZSK
+:param activated: `str` yes or no
         """
         arguments = [algorithm,keysize,keytype,activated,]
         data = json.dumps(arguments)
@@ -75,7 +79,8 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
     
     def AddNameserverGroup(self, groupname):
         """Add a nameserver group.
-:param groupname: `str` name of the group you wish to add
+
+:param groupname: `str` name of the group you wish to add 
         """
         arguments = [groupname,]
         data = json.dumps(arguments)
@@ -116,7 +121,9 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
     
     def EditDnsRecords(self, zone, records):
         """Edits the records for a certain label
-:param zone: `str` zone name :param records: `list` for format see AddDnsRecords 
+
+:param zone: `str` zone name
+:param records: `list` for format see AddDnsRecords 
         """
         arguments = [zone,records,]
         data = json.dumps(arguments)
@@ -129,6 +136,10 @@ default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
 One should only provide the labels in a following format
 
 '[{"label": "www"}, {"label": "bleh"}]'
+
+:param zone: `str` the name of the zone
+
+:param records: `list` of `dict` containing only the label
 
         """
         arguments = [zone,records,]
@@ -165,7 +176,8 @@ One should only provide the labels in a following format
     
     def RestoreZoneBinary(self, zone, nameservergroup, data):
         """Restores the zone
-:param zone: `str` zone name :param nameservergroup: `str` name of the nameserver group :param data: `str` b64encoded data to restore 
+
+:param zone: `str` zone name :param nameservergroup: `str` name of the nameserver group :param data: `str` data to restore 
         """
         arguments = [zone,nameservergroup,data,]
         data = json.dumps(arguments)
@@ -174,6 +186,7 @@ One should only provide the labels in a following format
     
     def DeleteAccount(self, email):
         """Removes a soap account
+
 :param email: `str` email of the account
         """
         arguments = [email,]
@@ -204,6 +217,7 @@ One should only provide the labels in a following format
     
     def DeleteNameServerGroup(self, groupname):
         """Delete a nameserver group.
+
 :param groupname: `str` name of the group you wish to delete
         """
         arguments = [groupname,]
@@ -213,6 +227,7 @@ One should only provide the labels in a following format
     
     def GetZoneBinary(self, zone):
         """Gets the binary data for the zone, this can be used to restore zones
+
 :param zone: `str` zone name 
         """
         arguments = [zone,]
@@ -231,8 +246,10 @@ One should only provide the labels in a following format
         return self.process_response(response)
     
     def AddAccount(self, email, password_soap):
-        """ Add an account for soap
-:param email: `str` email used as login :param paswword_soap: `str` password for the user
+        """Adds an account for soap
+
+:param email: `str` email used as login
+:param paswword_soap: `str` password for the user 
         """
         arguments = [email,password_soap,]
         data = json.dumps(arguments)
@@ -260,7 +277,11 @@ One should only provide the labels in a following format
     
     def FindZones(self, email, pattern, count, offset):
         """ Finds zones according to the pattern
-:param email: `str` email of the account :param pattern: `str` the pattern to search for with SQL LIKE semantics :param count: `int` the max number of zones to return :param offset: `int` the offset of the first zone to return 
+
+:param email: `str` email of the account
+:param pattern: `str` the pattern to search for with SQL LIKE semantics
+:param count: `int` the max number of zones to return
+:param offset: `int` the offset of the first zone to return 
         """
         arguments = [email,pattern,count,offset,]
         data = json.dumps(arguments)

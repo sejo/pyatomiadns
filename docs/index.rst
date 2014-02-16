@@ -12,10 +12,13 @@ You can find the code of this project here:
 https://github.com/sejo/pyatomiadns
 
 
+One should also investigate https://github.com/sejo/django_atomiadns for a sane webapp.
+
+
 Thanks
 ======
 
-For the release of the 1.3 branch I would like to thank `Amplidata NV`_ for the time I was allowed to spend on creating and testing the 1.3 branch.
+For the release of the 1.3 release I would like to thank `Amplidata NV`_ for the time I was allowed to spend on creating and testing the 1.3 branch.
 
 How to test
 ===========
