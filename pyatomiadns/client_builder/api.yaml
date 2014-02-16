@@ -156,6 +156,10 @@ DeleteDnsRecords:
 
      '[{"label": "www"}, {"label": "bleh"}]'
 
+     :param zone: `str` the name of the zone
+
+     :param records: `list` of `dict` containing only the label
+
 AddDNSSECKey:
  args:
   - "algorithm"
@@ -167,9 +171,13 @@ AddDNSSECKey:
   default algorithm:  RSASHA256
   for KSK use keysize 2048, for ZSK use 1024
 
+
   :param algorithm: `str` defaults to RSASHA256
+
   :param keysize: `int` size of key in bit (1024, 2048,...)
+
   :param keytype: `str` KSK or ZSK
+
   :param activated: `str` yes or no'
 AddNameserverGroup:
  args:
@@ -193,6 +201,7 @@ AddAccount:
 
 
  :param email: `str` email used as login
+
  :param paswword_soap: `str` password for the user'
 DeleteAccount:
  args:
@@ -215,8 +224,11 @@ FindZones:
 
 
  :param email: `str` email of the account
+
  :param pattern: `str` the pattern to search for with SQL LIKE semantics
+
  :param count: `int` the max number of zones to return
+
  :param offset: `int` the offset of the first zone to return
  '
 
@@ -228,6 +240,7 @@ EditDnsRecords:
 
 
  :param zone: `str` zone name
+
  :param records: `list` for format see AddDnsRecords
  '
 GetZoneBinary:
