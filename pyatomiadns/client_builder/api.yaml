@@ -267,3 +267,14 @@ RestoreZoneBinary:
 
  :param data: `str` data to restore
  "
+EditAccount:
+ args:
+ - "email"
+ - "password"
+ docstring: "Allows one to change the password of ones account
+
+
+ :param email: `str` email of the account to change
+
+ :param password: `str` new password
+ "

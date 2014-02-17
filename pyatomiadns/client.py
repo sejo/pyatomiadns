@@ -55,6 +55,17 @@ class AtomiaClient():
         response = self.request("DeleteZone", data)
         return self.process_response(response)
     
+    def EditAccount(self, email, password):
+        """Allows one to change the password of ones account
+
+:param email: `str` email of the account to change
+:param password: `str` new password 
+        """
+        arguments = [email,password,]
+        data = json.dumps(arguments)
+        response = self.request("EditAccount", data)
+        return self.process_response(response)
+    
     def AddDNSSECKey(self, algorithm, keysize, keytype, activated):
         """Adds a DNSSEC key to the database.
 default algorithm:  RSASHA256 for KSK use keysize 2048, for ZSK use 1024
